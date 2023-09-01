@@ -1,0 +1,132 @@
+<domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
+  <name>debian12</name>
+  <uuid>615d00ea-79a4-466e-b19a-5fd4ad9c6684</uuid>
+  <metadata>
+    <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
+      <libosinfo:os id="http://debian.org/debian/12"/>
+    </libosinfo:libosinfo>
+  </metadata>
+  <memory>6291456</memory>
+  <currentMemory>6291456</currentMemory>
+  <vcpu current="2">2</vcpu>
+  <sysinfo type="smbios">
+    <bios>
+      <entry name="vendor">Gigabyte Inc.</entry>
+      <entry name="version">P1.60</entry>
+    </bios>
+    <system>
+      <entry name="manufacturer">Gigabyte</entry>
+      <entry name="product">Z690 GAMING X DDR4 V2</entry>
+      <entry name="version">1.29</entry>
+      <entry name="serial">GB-2t6kJHFu</entry>
+      <entry name="sku">r6vZW5Gkd8Sw8dgQweBfGiscZF2NPAUMk58CKuZEcbnhzZyifSzvUcGdCvssvPKMTeecJS</entry>
+    </system>
+    <baseBoard>
+      <entry name="manufacturer">Gigabyte</entry>
+      <entry name="product">Z690 GAMING X DDR4 V2 E</entry>
+      <entry name="version">1.29</entry>
+      <entry name="serial">GB-9NaFxZhH</entry>
+    </baseBoard>
+    <chassis>
+      <entry name="manufacturer">Gigabyte</entry>
+      <entry name="version">1.29</entry>
+      <entry name="serial">GB-aJhoKdrt</entry>
+      <entry name="sku">GhpCdX2r8F4S6GMAVxWdDbhrr989Mi6PojQaZ8a9SLEn2dAbHm3E3wXPrZZG2M5gQSwXcq</entry>
+    </chassis>
+  </sysinfo>
+  <os>
+    <type arch="x86_64" machine="q35">hvm</type>
+    <bootmenu enable="yes"/>
+  </os>
+  <features>
+    <acpi/>
+    <apic/>
+     <kvm>
+      <hidden state="on"/>
+    </kvm>
+    <vmport state="off"/>
+  </features>
+  <cpu mode="host-passthrough">
+    <topology sockets="1" cores="1" threads="2"/>
+    <feature policy="disable" name="invtsc"/>
+    <feature policy="disable" name="hypervisor"/>
+    <feature policy="disable" name="aes"/>
+    <feature policy="disable" name="topoext"/>
+    <feature policy="disable" name="vmx"/>
+  </cpu>
+  <clock offset="utc">
+    <timer name="rtc" tickpolicy="catchup"/>
+    <timer name="pit" tickpolicy="delay"/>
+    <timer name="hpet" present="no"/>
+  </clock>
+  <pm>
+    <suspend-to-mem enabled="no"/>
+    <suspend-to-disk enabled="no"/>
+  </pm>
+  <devices>
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>
+    <disk type="file" device="disk">
+      <driver name="qemu" type="qcow2" cache="writeback"/>
+      <source file="/mnt/veracrypt2/virt-manager-machines/archlinux-test.qcow2"/>
+      <target dev="sdb" bus="scsi"/>
+      <boot order="1"/>
+      <serial>HP-qYXvdkWX</serial>
+          <vendor>HP</vendor>
+          <product>AA03631AC6</product>
+    </disk>
+    <disk type="file" device="cdrom">
+      <driver name="qemu" type="raw"/>
+      <source file="/mnt/veracrypt2/isos/antiX-22_x64-full.iso"/>
+      <target dev="sda" bus="sata"/>
+      <readonly/>
+      <boot order="2"/>
+    </disk>
+    <controller type="usb" model="qemu-xhci" ports="15"/>
+    <controller type="pci" model="pcie-root"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <controller type="pci" model="pcie-root-port"/>
+    <interface type="network">
+      <source network="default"/>
+      <mac address="52:54:00:1f:4f:3d"/>
+      <model type="e1000e"/>
+    </interface>
+    <console type="pty"/>
+    <channel type="unix">
+      <source mode="bind"/>
+      <target type="virtio" name="org.qemu.guest_agent.0"/>
+    </channel>
+    <channel type="spicevmc">
+      <target type="virtio" name="com.redhat.spice.0"/>
+    </channel>
+    <input type="tablet" bus="usb"/>
+    <graphics type="spice" port="-1" tlsPort="-1" autoport="yes">
+      <image compression="off"/>
+    </graphics>
+    <sound model="ich9"/>
+    <video>
+      <model type="qxl"/>
+    </video>
+    <redirdev bus="usb" type="spicevmc"/>
+    <redirdev bus="usb" type="spicevmc"/>
+    <memballoon model="none"/>
+    <rng model="virtio">
+      <backend model="random">/dev/urandom</backend>
+    </rng>
+  </devices>
+   <qemu:commandline>
+    <qemu:arg value="-cpu"/>
+    <qemu:arg value="host,-vmx,-topoext,-hypervisor,-aes,-rdtscp,-invtsc,kvm-asyncpf-int,hv-relaxed,hv-spinlocks=0x1fff,hv-vendor-id=buttplug,kvm=off,kvm-hint-dedicated=on,host-cache-info=on,hv-vapic=off,hv-synic=off,hv-stimer=off"/>
+  </qemu:commandline>
+</domain>
